@@ -35,7 +35,7 @@ export class LocationComponent implements OnInit {
   count = 500;
   locationListAll: any;
   config;
-  maxStt: number = 0;
+
   constructor(
     private httpClient: HttpClient,
     private el: ElementRef,
@@ -65,18 +65,16 @@ export class LocationComponent implements OnInit {
         'get',
         true
       );
-      this.maxStt = this.locationListAll.reduce(function (
-        accumulator,
-        element
-      ) {
-        return accumulator.stt > element.stt ? accumulator.stt : element.stt;
+      // console.log(this.locationListAll.length);
+      this.locationListAll.sort(function (a, b) {
+        return b.stt - a.stt;
       });
-      this.maxStt = this.maxStt + 1;
       this.isLoading = false;
     } catch (e) {
       console.log(e.message);
     }
   }
+
   closeModalAdd() {
     this.nameLocationAdd = '';
     this.desLocationAdd = '';
@@ -87,8 +85,7 @@ export class LocationComponent implements OnInit {
         this.api.apiLists.AddLocation,
         {},
         {
-          stt: this.maxStt + 1,
-
+          stt: this.locationListAll.length + 1,
           tenĐiaiem: this.nameLocationAdd,
           moTa: this.desLocationAdd,
         },
