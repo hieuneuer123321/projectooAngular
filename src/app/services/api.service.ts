@@ -72,6 +72,10 @@ export class ApiservicesService {
     UpdateLocation: '/api/Event/UpdateLocation',
     DeleteLocation: '/api/Event/DeleteLocation',
     AddLocation: '/api/Event/AddNewLocation',
+    ///////
+    GetAllEventSample: '/api/Event/GetAllEventSample',
+    GetEventDetailById: '/api/Event/GetEventDetailById',
+    AddNewEventSample: '/api/Event/AddNewEventSample',
   };
 
   constructor(

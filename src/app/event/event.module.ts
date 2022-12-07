@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { EventSampleComponent } from './event-sample/event-sample.component';
 import { LocationComponent } from './location/location.component';
 import { NewEventSampleComponent } from './new-event-sample/new-event-sample.component';
+import { EventSampleDetailComponent } from './event-sample-detail/event-sample-detail.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { NewEventSampleComponent } from './new-event-sample/new-event-sample.com
     NewEventComponent,
     LocationComponent,
     EventSampleComponent,
-    NewEventSampleComponent
+    NewEventSampleComponent,
+    EventSampleDetailComponent
   ],
   imports: [
     CommonModule,

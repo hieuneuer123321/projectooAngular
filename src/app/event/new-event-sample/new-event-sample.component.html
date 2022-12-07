@@ -15,7 +15,7 @@
     </div>
     <div class="col-11">
       <div class="page-title-box">
-        <h4 class="page-title">Thêm Mới Lịch Tuần</h4>
+        <h4 class="page-title">Thêm Mới Lịch Tuần Mẫu</h4>
       </div>
     </div>
   </div>
@@ -23,92 +23,118 @@
     <aw-wizard-step stepTitle="1. Nhập thông tin lịch">
       <div class="container">
         <div class="row">
-          <div class="mb-3">
-            <label for="simpleinput" class="form-label">Chọn lịch mẫu:</label>
-            <select class="form-select" id="example-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
           <div class="mb-3 col-lg-6 col-sm-12 row">
             <label for="simpleinput" class="form-label ipt">Bắt đầu:</label>
             <div class="col-lg-6 col-sm-12">
-              <input
-                class="form-control"
-                id="example-date"
-                type="date"
-                name="date"
-              />
+              <input class="form-control" type="date" [(ngModel)]="dateStart" />
             </div>
             <div class="col-lg-4 col-sm-12">
               <input
                 class="form-control col"
-                id="example-time"
                 type="time"
-                name="time"
+                style="width: 150px"
+                [(ngModel)]="hourStart"
               />
             </div>
           </div>
           <div class="mb-3 col-lg-6 col-sm-12 row">
             <label for="simpleinput" class="form-label ipt">Kết thúc:</label>
             <div class="col-lg-6 col-sm-12">
-              <input
-                class="form-control"
-                id="example-date"
-                type="date"
-                name="date"
-              />
+              <input class="form-control" type="date" [(ngModel)]="dateEnd" />
             </div>
             <div class="col-lg-4 col-sm-12">
               <input
                 class="form-control col"
-                id="example-time"
                 type="time"
-                name="time"
+                style="width: 150px"
+                [(ngModel)]="hourEnd"
               />
             </div>
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label ipt"
-              >Nội dung:</label
+              >Lặp Lại:</label
             >
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              [(ngModel)]="evenSample.hopkhan"
+            >
+              <option value="Không Lập Lại" selected>Không Lặp Lại</option>
+              <option value="Lập Lại">Lặp Lại</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="example-textarea" class="form-label ipt"
+              >Nội dung: <span class="required_input">(*)</span>
+            </label>
             <textarea
               class="form-control"
               id="example-textarea"
               rows="5"
+              [(ngModel)]="evenSample.noidung"
             ></textarea>
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label ipt"
-              >Chủ trì:</label
+              >Chủ trì: <span class="required_input">(*)</span></label
             >
-            <input type="text" id="simpleinput" class="form-control" />
+            <input
+              type="text"
+              id="simpleinput"
+              class="form-control"
+              [(ngModel)]="evenSample.chutri"
+            />
+            {{ evenSample.chutri }}
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label ipt"
-              >Thành phần:</label
+              >Thành phần: <span class="required_input">(*)</span></label
             >
-            <input type="text" id="simpleinput" class="form-control" />
+            <input
+              type="text"
+              id="simpleinput"
+              class="form-control"
+              [(ngModel)]="evenSample.thanhphan"
+            />
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label ipt"
               >Chuẩn bị:</label
             >
-            <input type="text" id="simpleinput" class="form-control" />
+            <input
+              type="text"
+              id="simpleinput"
+              class="form-control"
+              [(ngModel)]="evenSample.chuanbi"
+            />
           </div>
           <div class="mb-3">
-            <label for="example-textarea" class="form-label">Địa điểm:</label>
-            <select class="form-select" id="example-select">
-              <option>1</option>
-              <option>2</option>
+            <label for="example-textarea" class="form-label"
+              >Địa điểm: <span class="required_input">(*)</span></label
+            >
+            <select
+              class="form-select"
+              id="example-select"
+              [(ngModel)]="evenSample.diadiem"
+            >
+              <option>Địa Điểm Khác</option>
+              <option
+                *ngFor="let item of locationListAll"
+                [value]="item.diaDiemId"
+              >
+                {{ item.tenDiaDiem }} - {{ item.moTa }}
+              </option>
             </select>
+            <input type="text" class="form-control" />
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label">Mời:</label>
-            <input type="text" id="simpleinput" class="form-control" />
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="evenSample.khachmoi"
+            />
           </div>
           <div class="mb-3">
             <label for="example-textarea" class="form-label">Ghi chú:</label>
@@ -116,6 +142,7 @@
               class="form-control"
               id="example-textarea"
               rows="5"
+              [(ngModel)]="evenSample.ghichu"
             ></textarea>
           </div>
           <div class="mb-3">
@@ -150,7 +177,7 @@
       </div>
       <div class="btn_list">
         <button type="button" awNextStep class="btn btn-primary">
-          Next Step
+          Chọn Danh Sách Liên Quan
         </button>
       </div>
     </aw-wizard-step>
@@ -166,11 +193,12 @@
               [(ngModel)]="groupKeyChosenInStep2"
               class="form-select"
               id="groupOfAssignee"
+              (change)="onChange($event.target.value)"
             >
               <option value="all" selected>Tất cả nhân viên</option>
               <option
-                [ngValue]="groupKey"
                 *ngFor="let groupKey of generalService.allUserGroupsKey"
+                value="{{ groupKey }}"
               >
                 {{ groupKey }}
               </option>
@@ -182,7 +210,7 @@
             [leftList]="allUserInStep2List"
             [rightList]="chosenAssigneelList"
           ></app-dual-list>
-          <div style="margin: 0 10px 30px 30px">
+          <!-- <div style="margin: 0 10px 30px 30px">
             <label class="form-label" for="majorAssignee"
               ><span style="color: tomato">(*)</span> Người Xử lý Chính:
             </label>
@@ -191,23 +219,30 @@
               [(ngModel)]="majorAssignee"
               class="form-select"
               id="majorAssignee"
+              (change)="onChangeUser($event.target.value)"
             >
               <option selected>Chọn...</option>
               <option
-                [ngValue]="assignee"
+                value="{{ assignee.fullName }}"
                 *ngFor="let assignee of chosenAssigneelList"
               >
                 {{ assignee.fullName }}
               </option>
             </select>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="text-center">
         <button type="button" class="btn btn-warning me-2" awPreviousStep>
-          Previous Step
+          Trở Lại
         </button>
-        <button type="button" class="btn btn-success">Finish</button>
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="addEventSample()"
+        >
+          Thêm Lịch Tuần Mẫu
+        </button>
       </div>
     </aw-wizard-step>
   </aw-wizard>
